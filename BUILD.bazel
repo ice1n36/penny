@@ -10,6 +10,7 @@ go_library(
     importpath = "github.com/ice1n36/penny",
     visibility = ["//visibility:private"],
     deps = [
+        "@com_github_gorilla_mux//:go_default_library",
     ],
 )
 
@@ -26,6 +27,7 @@ container_image(
     name = "penny_container_image",
     base = "@alpine_linux_amd64//image",
     entrypoint = ["/penny"],
+    ports = ["80"],
     files = [":penny"],
 )
 

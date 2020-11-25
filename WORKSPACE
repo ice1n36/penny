@@ -59,7 +59,7 @@ container_pull(
     name = "alpine_linux_amd64",
     registry = "index.docker.io",
     repository = "library/alpine",
-    tag = "3.8",
+    tag = "3.9",
 )
 
 # load go docker rules
@@ -71,3 +71,10 @@ load(
 _go_image_repos()
 
 # external deps
+
+go_repository(
+    name = "com_github_gorilla_mux",
+    importpath = "github.com/gorilla/mux",
+    sum = "h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=",
+    version = "v1.8.0",
+)
