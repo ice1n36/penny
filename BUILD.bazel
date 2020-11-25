@@ -1,0 +1,38 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/ice1n36/penny
+gazelle(name = "gazelle")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/ice1n36/penny",
+    visibility = ["//visibility:private"],
+    deps = [
+    ],
+)
+
+go_binary(
+    name = "penny",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
+
+# load bazel rules for docker images
+load("@io_bazel_rules_docker//container:container.bzl", "container_push", "container_image")
+
+container_image(
+    name = "penny_container_image",
+    base = "@alpine_linux_amd64//image",
+    entrypoint = ["/penny"],
+    files = [":penny"],
+)
+
+container_push(
+    name = "penny_container_image_push",
+    format = "Docker",
+    image = ":penny_container_image",
+    registry = "index.docker.io",
+    repository = "ice1n36/penny",
+)
