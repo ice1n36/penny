@@ -1,16 +1,39 @@
 # Penny
 
-Penny is the main interface both for gadgets and users. 
+Penny is the main interface both for gadgets and users.
 
 ## Install
 
+### Go
 ```
 go get github.com/ice1n36/penny
 ```
 
-## Build & Run
+See below on how to build and run
 
-### Locally
+### Docker
+```
+docker pull ice1n36/penny:latest
+```
+
+## Run
+```
+docker run --rm -it -d -p80:80 ice1n36/penny
+```
+
+### Docker Compose
+In this directory:
+```
+docker-compose up -d
+```
+
+and to teardown:
+```
+docker-compose down
+```
+
+## Development
+### Build & Run
 
 update dependencies
 ```
@@ -26,7 +49,7 @@ bazel run :penny
 ### Docker
 ```
 bazel run --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 :penny_container_image
-docker run --rm -it -p80:80 bazel:penny_container_image
+docker run --rm -it -d -p80:80 bazel:penny_container_image
 ```
 
 ## Publish
